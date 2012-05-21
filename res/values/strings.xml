@@ -7,5 +7,11 @@
     <string name="ui_default_timer">--:--</string>
     <string name="button_start_recording">Press to start recording</string>
     <string name="button_stop_recording">Press to stop recording</string>
+    <string name="button_start_playing">Press to play last record</string>
+    <string name="button_stop_playing">Press to stop playback</string>
+    <string name="share_title">I want to share a recording with you</string>
+    <string name="share_body">Here is a recording I did.</string>
+    <string name="share_dialog_title">Share the last recording</string>
+    <string name="no_recording_done">Please do a recording before sharing it!</string>
 
 </resources>

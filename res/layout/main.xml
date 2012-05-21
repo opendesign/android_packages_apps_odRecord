@@ -42,9 +42,20 @@
         <com.opendesign.record.VuMeterView
             android:id="@+id/vuMeterView"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dip"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" android:layout_margin="15dip"/>
+            android:layout_centerHorizontal="true" android:layout_margin="15dip" android:layout_alignParentBottom="false"/>
+
+        <ToggleButton
+            android:id="@+id/btnPlayLastRecord"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btnRecord"
+            android:layout_alignParentLeft="false"
+            android:background="@drawable/btn_play_img"
+            android:onClick="onClickPlay"
+            android:textOff="@string/button_start_playing"
+            android:textOn="@string/button_stop_playing" android:layout_alignParentBottom="false" android:layout_marginBottom="15dip" android:layout_marginRight="20dp" android:layout_marginLeft="25dp" android:disabledAlpha="0.5"/>
 
     </RelativeLayout>
 
