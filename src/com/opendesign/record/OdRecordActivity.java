@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -22,25 +23,31 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 public class OdRecordActivity extends Activity {
     private AudioRecorder mRecorder = null;
-    private Timer mVuMeterTimer = null;
+    private Timer mUiTimer = null;
+    private long mRecordingStartTime = 0;
 
-    class VuMeterTimedTask extends TimerTask {
-        VuMeterView mVuMeter = null;
-
+    class UiUpdateTask extends TimerTask {
         public void run() {
-            if (mVuMeter == null) {
-                mVuMeter = (VuMeterView) findViewById(R.id.vuMeterView);
-            }
+            final VuMeterView vuMeter = (VuMeterView) findViewById(R.id.vuMeterView);
+            final TextView durationText = (TextView) findViewById(R.id.textRecordDuration);
 
-            mVuMeter.setValue(mRecorder.getAmplitude());
+            vuMeter.setValue(mRecorder.getAmplitude());
 
+            final long duration = System.currentTimeMillis() - mRecordingStartTime;
+            
             runOnUiThread(new Runnable() {
                 public void run() {
-                    mVuMeter.invalidate();
+                    durationText.setText(String.format("%02d:%02d", 
+                            TimeUnit.MILLISECONDS.toMinutes(duration),
+                            TimeUnit.MILLISECONDS.toSeconds(duration) - 
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration))
+                        ));
+                    vuMeter.invalidate();
                 }
             });
 
@@ -82,7 +89,8 @@ public class OdRecordActivity extends Activity {
             // prepare recording
             SimpleDateFormat fileNameDate = new SimpleDateFormat();
             fileNameDate.applyPattern("yyyy-MM-dd HH.mm.ss");
-            mRecorder = new AudioRecorder(fileNameDate.format(new Date()) + ".3gp");
+            mRecorder = new AudioRecorder(fileNameDate.format(new Date())
+                    + ".3gp");
 
             // start recording
             try {
@@ -95,15 +103,17 @@ public class OdRecordActivity extends Activity {
                 tb.setChecked(true);
                 tb.setEnabled(true);
 
-                mVuMeterTimer = new Timer();
-                mVuMeterTimer.schedule(new VuMeterTimedTask(), 10, 30);
+                mUiTimer = new Timer();
+                mUiTimer.schedule(new UiUpdateTask(), 10, 50);
+
+                mRecordingStartTime = System.currentTimeMillis();
             }
         } else {
             tb.setChecked(true);
             tb.setEnabled(false);
 
             try {
-                mVuMeterTimer.cancel();
+                mUiTimer.cancel();
                 mRecorder.stop();
             } catch (IOException e) {
                 makeAlert("Error while stopping recording:\n" + e.getMessage());
