@@ -22,97 +22,93 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ToggleButton;
 
-public class OdRecordActivity extends Activity {	
-	private AudioRecorder mRecorder = null;
-	private Timer mVuMeterTimer = null;
-	
-	class VuMeterTimedTask extends TimerTask {
-		VuMeterView mVuMeter = null;
-		
-		public void run() {
-			if (mVuMeter == null) {
-				mVuMeter = (VuMeterView)findViewById(R.id.vuMeterView);
-			}
-			
-			mVuMeter.setValue(mRecorder.getAmplitude());
-			
-			runOnUiThread(new Runnable() {
-				public void run() {
-					mVuMeter.invalidate();
-				}
-			});
-			
-		}
-	}
+public class OdRecordActivity extends Activity {
+    private AudioRecorder mRecorder = null;
+    private Timer mVuMeterTimer = null;
 
-	
-	
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
-	}
+    class VuMeterTimedTask extends TimerTask {
+        VuMeterView mVuMeter = null;
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.main_activity, menu);
-	    return true;
-	}
-	
-	public void makeAlert(final String message) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(message)
-		.setCancelable(false)
-		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-			}
-		});
-		AlertDialog alert = builder.create();
-		alert.show();
-	}
+        public void run() {
+            if (mVuMeter == null) {
+                mVuMeter = (VuMeterView) findViewById(R.id.vuMeterView);
+            }
 
+            mVuMeter.setValue(mRecorder.getAmplitude());
 
-	public void onClickRecord(View v) {
-		final ToggleButton tb = (ToggleButton)findViewById(R.id.btnRecord);
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    mVuMeter.invalidate();
+                }
+            });
 
-		if (tb.isChecked()) {
-			// force disabled before recording
-			tb.setChecked(false);
-			tb.setEnabled(false);
+        }
+    }
 
-			// prepare recording
-			mRecorder = new AudioRecorder("test.3gp");
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+    }
 
-			// start recording
-			try {
-				mRecorder.start();
-			} catch (IOException e) {
-				makeAlert("Error while starting recording:\n" + e.getMessage());
-				tb.setChecked(false);
-				tb.setEnabled(true);
-			} finally {
-				tb.setChecked(true);
-				tb.setEnabled(true);
-				
-				mVuMeterTimer =	new Timer();
-				mVuMeterTimer.schedule(new VuMeterTimedTask(), 10, 20);
-			}
-		} else {
-			tb.setChecked(true);
-			tb.setEnabled(false);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_activity, menu);
+        return true;
+    }
 
-			try {
-				mVuMeterTimer.cancel();
-				mRecorder.stop();
-			} catch (IOException e) {
-				makeAlert("Error while stopping recording:\n" + e.getMessage());
-				tb.setChecked(true);
-				tb.setEnabled(true);
-			} finally {
-				tb.setChecked(false);
-				tb.setEnabled(true);
-			}
-		}
-	}
+    public void makeAlert(final String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message).setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    public void onClickRecord(View v) {
+        final ToggleButton tb = (ToggleButton) findViewById(R.id.btnRecord);
+
+        if (tb.isChecked()) {
+            // force disabled before recording
+            tb.setChecked(false);
+            tb.setEnabled(false);
+
+            // prepare recording
+            mRecorder = new AudioRecorder("test.3gp");
+
+            // start recording
+            try {
+                mRecorder.start();
+            } catch (IOException e) {
+                makeAlert("Error while starting recording:\n" + e.getMessage());
+                tb.setChecked(false);
+                tb.setEnabled(true);
+            } finally {
+                tb.setChecked(true);
+                tb.setEnabled(true);
+
+                mVuMeterTimer = new Timer();
+                mVuMeterTimer.schedule(new VuMeterTimedTask(), 10, 20);
+            }
+        } else {
+            tb.setChecked(true);
+            tb.setEnabled(false);
+
+            try {
+                mVuMeterTimer.cancel();
+                mRecorder.stop();
+            } catch (IOException e) {
+                makeAlert("Error while stopping recording:\n" + e.getMessage());
+                tb.setChecked(true);
+                tb.setEnabled(true);
+            } finally {
+                tb.setChecked(false);
+                tb.setEnabled(true);
+            }
+        }
+    }
 }
