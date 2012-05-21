@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textRecordDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="25dip"
+        android:text="--:--:--"
+        android:textSize="56dip" android:shadowColor="#BBBBBB" android:shadowRadius="2.0" android:shadowDx="2.0" android:shadowDy="2.0"/>
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom" >
+
+        <ToggleButton
+            android:id="@+id/btnRecord"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="ToggleButton"
+            android:textOff="Press to start recording"
+            android:textOn="Press to stop" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" android:layout_marginBottom="15dip" android:onClick="onClickRecord"/>
+
+        <ProgressBar
+            android:id="@+id/vuMeter"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"/>
+        
+        <com.opendesign.record.VuMeterView
+            android:id="@+id/vuMeterView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

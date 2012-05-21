@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_save"
+          android:icon="@drawable/ic_action_share"
+          android:title="@string/menu_share"
+          android:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/menu_list"
+          android:icon="@drawable/ic_action_list"
+          android:title="@string/menu_list"
+          android:showAsAction="ifRoom|withText" />
+</menu>
