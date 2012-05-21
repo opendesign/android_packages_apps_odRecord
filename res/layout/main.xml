@@ -24,7 +24,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textOff="@string/button_start_recording"
-            android:textOn="@string/button_stop_recording" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" android:layout_marginBottom="15dip" android:onClick="onClickRecord"/>
+            android:textOn="@string/button_stop_recording" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" android:layout_marginBottom="15dip" android:onClick="onClickRecord" android:background="@drawable/btn_record"/>
 
         <ProgressBar
             android:id="@+id/vuMeter"

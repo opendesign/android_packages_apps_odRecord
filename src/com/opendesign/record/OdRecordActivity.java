@@ -10,6 +10,8 @@
 package com.opendesign.record;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -78,7 +80,9 @@ public class OdRecordActivity extends Activity {
             tb.setEnabled(false);
 
             // prepare recording
-            mRecorder = new AudioRecorder("test.3gp");
+            SimpleDateFormat fileNameDate = new SimpleDateFormat();
+            fileNameDate.applyPattern("yyyy-MM-dd HH.mm.ss");
+            mRecorder = new AudioRecorder(fileNameDate.format(new Date()) + ".3gp");
 
             // start recording
             try {
