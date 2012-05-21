@@ -35,6 +35,10 @@ public class VuMeterView extends View {
     }
 
     public void setValue(int value) {
+        if (value == 0)
+            return; // if we poll audiorecorder too fast, we have a zero value,
+                    // making meter flickering
+
         mCurrentValue = value;
 
         if (value > mPeakValue)
@@ -51,7 +55,7 @@ public class VuMeterView extends View {
 
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(20);
+        paint.setStrokeWidth(30);
 
         // draw meter line
         paint.setColor(0xFF99CC00);
@@ -59,8 +63,7 @@ public class VuMeterView extends View {
 
         // draw peak
         paint.setColor(0xFFCC0000);
-        canvas.drawLine(getWidth() - 10, 0, getWidth(), 0, paint);
-
-        // Log.e("redraw", "redraw");
+        canvas.drawLine(mPeakValue * getWidth() / mMaxValue - 10, 0, mPeakValue
+                * getWidth() / mMaxValue, 0, paint);
     }
 }

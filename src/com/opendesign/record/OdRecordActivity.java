@@ -92,7 +92,7 @@ public class OdRecordActivity extends Activity {
                 tb.setEnabled(true);
 
                 mVuMeterTimer = new Timer();
-                mVuMeterTimer.schedule(new VuMeterTimedTask(), 10, 20);
+                mVuMeterTimer.schedule(new VuMeterTimedTask(), 10, 30);
             }
         } else {
             tb.setChecked(true);

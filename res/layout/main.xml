@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="25dip"
-        android:text="--:--:--"
+        android:text="@string/ui_default_timer"
         android:textSize="56dip" android:shadowColor="#BBBBBB" android:shadowRadius="2.0" android:shadowDx="2.0" android:shadowDy="2.0"/>
 
     <RelativeLayout
@@ -23,9 +23,8 @@
             android:id="@+id/btnRecord"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="ToggleButton"
-            android:textOff="Press to start recording"
-            android:textOn="Press to stop" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" android:layout_marginBottom="15dip" android:onClick="onClickRecord"/>
+            android:textOff="@string/button_start_recording"
+            android:textOn="@string/button_stop_recording" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" android:layout_marginBottom="15dip" android:onClick="onClickRecord"/>
 
         <ProgressBar
             android:id="@+id/vuMeter"
@@ -41,7 +40,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true" android:layout_margin="15dip"/>
 
     </RelativeLayout>
 

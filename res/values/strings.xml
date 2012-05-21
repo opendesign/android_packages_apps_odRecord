@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, OdRecordActivity!</string>
     <string name="app_name">odRecord</string>
     <string name="menu_share">Share</string>
     <string name="menu_list">List recordings</string>
+    <string name="ui_default_timer">--:--:--</string>
+    <string name="button_start_recording">Press to start recording</string>
+    <string name="button_stop_recording">Press to stop recording</string>
 
 </resources>
